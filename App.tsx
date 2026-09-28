@@ -1,3 +1,6 @@
+//Como no pago lo de desarrollador cada 7 dias se me aduca la secion y ya no puedo acceder a la app, asi que cada semana
+//conectar telefono y correr "npx expo run:ios --device"
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
@@ -21,8 +24,9 @@ export default function App() {
 
         setStatus('Inferencia OK ✅ — revisa la consola (Metro) para ver el output');
       } catch (e) {
-        console.log('Error:', e);
-        setStatus('Error: ' + e.message);
+          console.log('Error:', e);
+          const mensaje = e instanceof Error ? e.message : String(e);
+          setStatus('Error: ' + mensaje);
       }
     }
     load();
@@ -43,4 +47,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
 });
