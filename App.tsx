@@ -1,36 +1,29 @@
 //Como no pago lo de desarrollador cada 7 dias se me aduca la secion y ya no puedo acceder a la app, asi que cada semana
-//conectar telefono y correr "npx expo run:ios --device"
+//conectar telefono y correr "conectar el iPhone y recompilar con npx expo run:ios --device"
 
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
-import { loadTensorflowModel } from 'react-native-fast-tflite';
+import { cargarModelo, clasificar } from './src/Servicios/Clasificador';
 
 export default function App() {
   const [status, setStatus] = useState('Cargando modelo...');
 
   useEffect(() => {
-    async function load() {
+    async function probar() {
       try {
-        const model = await loadTensorflowModel(require('./assets/modelos/modelo_prueba.tflite'), []);
-        setStatus('Modelo cargado ✅ — probando inferencia...');
-
-        // Datos de prueba: imagen "gris" de 224x224x3
-        const dummyInput = new Float32Array(1 * 224 * 224 * 3).fill(0.5);
-        const output = model.runSync([dummyInput.buffer]);
-
-        const outputArray = new Float32Array(output[0]);
-        console.log('Output:', Array.from(outputArray));
-
-        setStatus('Inferencia OK ✅ — revisa la consola (Metro) para ver el output');
+        await cargarModelo();
+        const entradaGris = new Float32Array(224 * 224 * 3).fill(0.5);
+        const r = clasificar(entradaGris);
+        const pct = Math.round(r.confianza * 100);
+        setStatus(r.confiable ? `${r.clase} (${pct}%)` : `Confianza baja (${pct}%)`);
       } catch (e) {
-          console.log('Error:', e);
-          const mensaje = e instanceof Error ? e.message : String(e);
-          setStatus('Error: ' + mensaje);
+        const mensaje = e instanceof Error ? e.message : String(e);
+        setStatus('Error: ' + mensaje);
       }
-    }
-    load();
-  }, []);
+  }
+  probar();
+}, []);
 
   return (
     <View style={styles.container}>
