@@ -5,8 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Button, Image, StyleSheet, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { cargarModelo, clasificar, Resultado } from './src/Servicios/Clasificador';
-import { imagenATensor } from './src/Servicios/ImagenATensor';
+import { cargarModelo, clasificar, Resultado } from './src/servicios/Clasificador';
+import { imagenATensor } from './src/servicios/ImagenATensor';
 
 export default function App() {
   const [listo, setListo] = useState(false);
