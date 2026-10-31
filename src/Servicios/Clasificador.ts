@@ -2,7 +2,7 @@ import { loadTensorflowModel } from 'react-native-fast-tflite';
 
 type Modelo = Awaited<ReturnType<typeof loadTensorflowModel>>;
 
-// Mismo orden que class_names en Colab (alfabético).
+// Mismo orden que class_names en Colab 
 export const CLASES = [
     'colilla',
     'plastico_film',
