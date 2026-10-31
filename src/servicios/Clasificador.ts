@@ -4,11 +4,11 @@ type Modelo = Awaited<ReturnType<typeof loadTensorflowModel>>;
 
 // Mismo orden que class_names en Colab 
 export const CLASES = [
-    'colilla',
-    'plastico_film',
-    'botella_plastico',
-    'erizo_morado',
-    'lobo_marino',
+  'botella_plastico',
+  'colilla',
+  'erizo_morado',
+  'lobo_marino',
+  'plastico_film',
 ] as const;
 
 export type Clase = (typeof CLASES)[number];
