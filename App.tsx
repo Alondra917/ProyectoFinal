@@ -28,7 +28,10 @@ export default function App() {
       const foto = r.assets[0].uri;
       setUri(foto);
       const entrada = await imagenATensor(foto);
-      setResultado(clasificar(entrada));
+      const res = clasificar(entrada);
+      console.log(res.probabilidades);
+      setResultado(res);
+      
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
