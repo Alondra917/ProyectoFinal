@@ -73,7 +73,7 @@ export default function ResultadoScreen({ navigation, route }: Props) {
         disabled={estado.tipo !== 'listo'}
         onPress={() => navigation.replace('Historial')}
       />
-      <Button title="Nueva foto" onPress={() => navigation.navigate('Inicio')} />
+      <Button title="Nueva foto" onPress={() => navigation.popTo('Inicio')} />
     </View>
   );
 }
