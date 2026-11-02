@@ -22,7 +22,12 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "react-native-fast-tflite"
-    ]
+      "react-native-fast-tflite",
+    "expo-image-picker",
+    {
+      "cameraPermission": "La cámara se usa para fotografiar hallazgos de playa y clasificarlos en tu teléfono."
+    }
+  ]
+    
   }
 }
