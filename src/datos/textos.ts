@@ -1,0 +1,10 @@
+export const INDICACION_CAPTURA =
+  'Acércate y centra el objeto: que ocupe casi todo el recuadro.';
+
+export const AVISO_ORIENTATIVO =
+  'Identificación orientativa. Ante la duda, no toques el hallazgo y avisa a las autoridades locales.';
+
+export const MENSAJE_NO_IDENTIFICADO = 'No se pudo identificar';
+
+export const PRECAUCION_GENERAL =
+  'Ante la duda, no toques el hallazgo, mantén la distancia y avisa a las autoridades locales.';
