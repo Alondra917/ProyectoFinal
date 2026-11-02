@@ -8,3 +8,6 @@ export const MENSAJE_NO_IDENTIFICADO = 'No se pudo identificar';
 
 export const PRECAUCION_GENERAL =
   'Ante la duda, no toques el hallazgo, mantén la distancia y avisa a las autoridades locales.';
+
+export const MENSAJE_CAMARA_DENEGADA =
+  'Sin acceso a tu cámara no puedes tomar fotos de hallazgos. Actívalo en Ajustes o usa "Elegir de galería".';
