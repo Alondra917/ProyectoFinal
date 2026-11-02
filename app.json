@@ -8,7 +8,8 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.ProyectoFinal"
+      "bundleIdentifier": "com.anonymous.ProyectoFinal" , 
+      "appleTeamId": "HPG9YDA6W8"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,11 +23,13 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "react-native-fast-tflite",
-    "expo-image-picker",
-    {
-      "cameraPermission": "La cámara se usa para fotografiar hallazgos de playa y clasificarlos en tu teléfono."
-    }
+    "react-native-fast-tflite",
+    [
+      "expo-image-picker",
+      {
+        "cameraPermission": "La cámara se usa para fotografiar hallazgos de playa y clasificarlos en tu teléfono."
+      }
+    ]
   ]
     
   }
