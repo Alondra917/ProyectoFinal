@@ -15,6 +15,9 @@ export default function InicioScreen({ navigation }: Props) {
   const [errorModelo, setErrorModelo] = useState<string | null>(null);
   const [errorSeleccion, setErrorSeleccion] = useState<string | null>(null);
 
+    function irAResultado(uri: string) {
+        navigation.navigate('Resultado', { uri });
+    }
   const cargar = useCallback(() => {
     setModelo('cargando');
     setErrorModelo(null);
@@ -39,7 +42,7 @@ export default function InicioScreen({ navigation }: Props) {
         aspect: [1, 1],
       });
       if (r.canceled) return;
-      navigation.navigate('Resultado', { uri: r.assets[0].uri });
+      irAResultado(r.assets[0].uri);
     } catch (e) {
       setErrorSeleccion(e instanceof Error ? e.message : String(e));
     }
