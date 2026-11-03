@@ -11,3 +11,6 @@ export const PRECAUCION_GENERAL =
 
 export const MENSAJE_CAMARA_DENEGADA =
   'Sin acceso a tu cámara no puedes tomar fotos de hallazgos. Actívalo en Ajustes o usa "Elegir de galería".';
+
+export const MENSAJE_FICHA_NO_DISPONIBLE =
+  'Ficha no disponible para este hallazgo.';

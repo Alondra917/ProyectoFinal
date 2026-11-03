@@ -1,0 +1,37 @@
+[
+  {
+    "clase": "botella_plastico",
+    "nombre_visible": "Botella de plástico",
+    "descripcion": "Envase plástico desechado. Tarda cientos de años en degradarse y se fragmenta en microplásticos.",
+    "precaucion": "Recógela con guantes o una bolsa y deposítala en un contenedor de reciclaje. Ten cuidado con vidrios o residuos cerca.",
+    "fuente": "PROVISIONAL: NOAA Marine Debris Program (verificar enlace)"
+  },
+  {
+    "clase": "colilla",
+    "nombre_visible": "Colilla de cigarro",
+    "descripcion": "El filtro es de plástico (acetato de celulosa) y retiene sustancias tóxicas del tabaco.",
+    "precaucion": "No la toques con las manos descubiertas. Recógela con guantes o pinzas y tírala en la basura, no en el reciclaje.",
+    "fuente": "PROVISIONAL: NOAA Marine Debris Program (verificar enlace)"
+  },
+  {
+    "clase": "erizo_morado",
+    "nombre_visible": "Erizo morado",
+    "descripcion": "Erizo de mar de espinas púrpuras que vive en rocas y pozas de marea de la costa del Pacífico.",
+    "precaucion": "No lo pises ni lo toques: las espinas pueden clavarse y romperse en la piel. Obsérvalo sin sacarlo del agua.",
+    "fuente": "PROVISIONAL: guía de fauna de pozas de marea (por definir y verificar)"
+  },
+  {
+    "clase": "lobo_marino",
+    "nombre_visible": "Lobo marino californiano",
+    "descripcion": "Mamífero marino que descansa en playas y rocas. Es una especie protegida en México.",
+    "precaucion": "Mantén al menos 50 m de distancia, no lo toques ni lo alimentes y mantén a los perros lejos. Si parece herido o enfermo, avisa a PROFEPA o Protección Civil; no intentes ayudarlo tú.",
+    "fuente": "PROVISIONAL: guía oficial de avistamiento (PROFEPA/SEMARNAT) por verificar; la distancia de 50 m es suposición mía"
+  },
+  {
+    "clase": "plastico_film",
+    "nombre_visible": "Plástico film",
+    "descripcion": "Bolsas y envolturas plásticas delgadas. Pueden enredar o ser ingeridas por fauna marina.",
+    "precaucion": "Recógelo completo con las manos protegidas y tíralo en la basura. Si está enredado en un animal, no lo cortes tú; avisa a las autoridades.",
+    "fuente": "PROVISIONAL: NOAA Marine Debris Program (verificar enlace)"
+  }
+]
