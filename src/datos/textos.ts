@@ -17,3 +17,9 @@ export const MENSAJE_FICHA_NO_DISPONIBLE =
   
 export const MENSAJE_ERROR_GUARDADO =
   'No se pudo guardar el hallazgo. Inténtalo de nuevo.';
+
+export const ETIQUETA_NO_IDENTIFICADO = 'No identificado';
+
+export const MENSAJE_HISTORIAL_VACIO = 'Aún no has guardado hallazgos.';
+
+export const MENSAJE_ERROR_HISTORIAL = 'No se pudo cargar el historial.';
