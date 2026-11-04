@@ -14,3 +14,6 @@ export const MENSAJE_CAMARA_DENEGADA =
 
 export const MENSAJE_FICHA_NO_DISPONIBLE =
   'Ficha no disponible para este hallazgo.';
+  
+export const MENSAJE_ERROR_GUARDADO =
+  'No se pudo guardar el hallazgo. Inténtalo de nuevo.';

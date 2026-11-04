@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState} from 'react';
 import { ActivityIndicator, Button, Image, ScrollView, StyleSheet, Text } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navegacion/tipos';
@@ -8,10 +8,12 @@ import { imagenATensor } from '../servicios/ImagenATensor';
 import { obtenerFicha } from '../servicios/Fichas';
 import AvisoOrientativo from '../componentes/AvisoOrientativo';
 import FichaCurada from '../componentes/FichaCurada';
+import { guardarHallazgo } from '../servicios/Historial';
 import {
   MENSAJE_FICHA_NO_DISPONIBLE,
   MENSAJE_NO_IDENTIFICADO,
   PRECAUCION_GENERAL,
+  MENSAJE_ERROR_GUARDADO
 } from '../datos/textos';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Resultado'>;
@@ -25,6 +27,9 @@ export default function ResultadoScreen({ navigation, route }: Props) {
   const { uri } = route.params;
   const [estado, setEstado] = useState<Estado>({ tipo: 'clasificando' });
   const [intento, setIntento] = useState(0);
+  const [guardando, setGuardando] = useState(false);
+  const [errorGuardado, setErrorGuardado] = useState<string | null>(null);
+  const guardandoRef = useRef(false);
 
   useEffect(() => {
     let cancelado = false;
@@ -49,6 +54,21 @@ export default function ResultadoScreen({ navigation, route }: Props) {
   const identificado =
     resultado !== null && resultado.confiable && resultado.clase !== 'otro';
   const ficha = identificado && resultado ? obtenerFicha(resultado.clase) : null;
+    async function guardar() {
+    if (guardandoRef.current || !resultado) return;
+      guardandoRef.current = true;
+      setGuardando(true);
+      setErrorGuardado(null);
+    try {
+      await guardarHallazgo(uri, resultado);
+      navigation.replace('Historial');
+    } catch (e) {
+      console.error('Error al guardar:', e);
+      setErrorGuardado(MENSAJE_ERROR_GUARDADO);
+      guardandoRef.current = false;
+      setGuardando(false);
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -91,11 +111,11 @@ export default function ResultadoScreen({ navigation, route }: Props) {
         </>
       )}
 
-      <Button
-        title="Guardar (prueba)"
-        disabled={estado.tipo !== 'listo'}
-        onPress={() => navigation.replace('Historial')}
-      />
+      {errorGuardado && <Text style={styles.texto}>{errorGuardado}</Text>}
+        <Button
+          title={guardando ? 'Guardando...' : 'Guardar'}
+          disabled={estado.tipo !== 'listo' || guardando}
+          onPress={guardar}  />
       <Button title="Nueva foto" onPress={() => navigation.popTo('Inicio')} />
     </ScrollView>
   );
