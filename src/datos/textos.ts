@@ -23,3 +23,7 @@ export const ETIQUETA_NO_IDENTIFICADO = 'No identificado';
 export const MENSAJE_HISTORIAL_VACIO = 'Aún no has guardado hallazgos.';
 
 export const MENSAJE_ERROR_HISTORIAL = 'No se pudo cargar el historial.';
+
+export const MENSAJE_HALLAZGO_NO_ENCONTRADO = 'No se encontró este hallazgo.';
+
+export const MENSAJE_UBICACION_NO_REGISTRADA = 'Ubicación no registrada';

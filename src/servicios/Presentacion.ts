@@ -2,8 +2,12 @@ import { ETIQUETA_NO_IDENTIFICADO } from '../datos/textos';
 import type { Hallazgo } from '../tipos/hallazgo';
 import { obtenerFicha } from './Fichas';
 
+export function esIdentificado(h: Hallazgo): boolean {
+  return h.confiable && h.clase_predicha !== 'otro';
+}
+
 export function tituloHallazgo(h: Hallazgo): string {
-  if (!h.confiable || h.clase_predicha === 'otro') return ETIQUETA_NO_IDENTIFICADO;
+  if (!esIdentificado(h)) return ETIQUETA_NO_IDENTIFICADO;
   return obtenerFicha(h.clase_predicha)?.nombre_visible ?? h.clase_predicha;
 }
 
