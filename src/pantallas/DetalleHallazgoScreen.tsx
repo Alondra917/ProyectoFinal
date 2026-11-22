@@ -11,6 +11,7 @@ import BotonSecundario from '../componentes/BotonSecundario';
 import FichaCurada from '../componentes/FichaCurada';
 import FondoDegradado from '../componentes/FondoDegradado';
 import ImagenHallazgo from '../componentes/ImagenHallazgo';
+import PrecaucionRiesgo from '../componentes/PrecaucionRiesgo';
 import TarjetaVidrio from '../componentes/TarjetaVidrio';
 import { colores, espacios, fuentes } from '../tema/tema';
 import {
@@ -113,9 +114,7 @@ export default function DetalleHallazgoScreen({ navigation, route }: Props) {
             </TarjetaVidrio>
           )
         ) : (
-          <TarjetaVidrio variante="solida" style={styles.precaucion}>
-            <Text style={styles.texto}>{PRECAUCION_GENERAL}</Text>
-          </TarjetaVidrio>
+          <PrecaucionRiesgo nivel="precaucion" lineas={[PRECAUCION_GENERAL]} />
         )}
         <AvisoOrientativo />
       </ScrollView>
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colores.texto,
   },
-  meta: { fontSize: 12, color: colores.textoSecundario },
+  // 12 → 14 para legibilidad
+  meta: { fontSize: 14, color: colores.textoSecundario },
   texto: { fontSize: 15, textAlign: 'center', color: colores.texto },
-  precaucion: { alignSelf: 'stretch', backgroundColor: colores.precaucionFondo },
 });
