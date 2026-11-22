@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { colores } from '../tema/tema';
 
 export default function ImagenHallazgo({ uri, tamano }: { uri: string; tamano: number }) {
   const [fallo, setFallo] = useState(false);
-  const medida = { width: tamano, height: tamano };
+  const medida = { width: tamano, height: tamano, borderRadius: tamano > 100 ? 24 : 12 };
 
   if (fallo) {
     return (
@@ -17,6 +18,12 @@ export default function ImagenHallazgo({ uri, tamano }: { uri: string; tamano: n
 }
 
 const styles = StyleSheet.create({
-  alternativo: { alignItems: 'center', justifyContent: 'center', backgroundColor: '#ddd' },
-  leyenda: { fontSize: 12, color: '#555' },
+  alternativo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colores.tarjetaSolida,
+    borderWidth: 1,
+    borderColor: colores.bordeVidrio,
+  },
+  leyenda: { fontSize: 12, color: colores.textoSecundario },
 });
