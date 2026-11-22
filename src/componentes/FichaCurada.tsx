@@ -1,10 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 import type { Ficha } from '../tipos/ficha';
 import TarjetaVidrio from './TarjetaVidrio';
+import PrecaucionRiesgo from './PrecaucionRiesgo';
 import { colores, espacios, fuentes } from '../tema/tema';
-import { ETIQUETA_DESCRIPCION, ETIQUETA_FUENTE, ETIQUETA_PRECAUCION } from '../datos/textos';
+import {
+  ETIQUETA_DESCRIPCION,
+  ETIQUETA_FUENTE,
+  ETIQUETA_SI_HAY_PROBLEMA,
+} from '../datos/textos';
 
 export default function FichaCurada({ ficha }: { ficha: Ficha }) {
+  const { fuente } = ficha;
+
   return (
     <View style={styles.ficha}>
       <TarjetaVidrio variante="vidrioSinBlur" style={styles.tarjeta}>
@@ -12,16 +20,22 @@ export default function FichaCurada({ ficha }: { ficha: Ficha }) {
         <Text style={styles.cuerpo}>{ficha.descripcion}</Text>
       </TarjetaVidrio>
 
-      <TarjetaVidrio variante="solida" style={[styles.tarjeta, styles.precaucion]}>
-        <Text style={[styles.etiqueta, styles.etiquetaPrecaucion]}>{ETIQUETA_PRECAUCION}</Text>
-        <Text style={styles.cuerpo}>{ficha.precaucion}</Text>
-      </TarjetaVidrio>
+      <PrecaucionRiesgo nivel={ficha.nivel_riesgo} lineas={ficha.precaucion} />
 
-      <TarjetaVidrio variante="vidrioSinBlur" style={styles.tarjeta}>
+      {ficha.si_hay_problema ? (
+        <TarjetaVidrio variante="vidrioSinBlur" style={styles.tarjeta}>
+          <Text style={styles.etiqueta}>{ETIQUETA_SI_HAY_PROBLEMA}</Text>
+          <Text style={styles.cuerpo}>{ficha.si_hay_problema}</Text>
+        </TarjetaVidrio>
+      ) : null}
+
+      <View style={styles.fuenteFila}>
+        <Feather name="book-open" size={13} color={colores.textoSecundario} />
         <Text style={styles.fuente}>
-          {ETIQUETA_FUENTE}: {ficha.fuente}
+          {ETIQUETA_FUENTE}: {fuente.nombre}
+          {fuente.consultado ? ` (consultado: ${fuente.consultado})` : ''}
         </Text>
-      </TarjetaVidrio>
+      </View>
     </View>
   );
 }
@@ -29,9 +43,13 @@ export default function FichaCurada({ ficha }: { ficha: Ficha }) {
 const styles = StyleSheet.create({
   ficha: { gap: espacios.m, alignSelf: 'stretch' },
   tarjeta: { gap: espacios.s },
-  precaucion: { backgroundColor: colores.precaucionFondo },
-  etiqueta: { fontFamily: fuentes.tituloSuave, fontSize: 20, color: colores.texto },
-  etiquetaPrecaucion: { color: colores.precaucionTitulo },
-  cuerpo: { fontSize: 15, lineHeight: 21, color: colores.texto },
-  fuente: { fontSize: 12, color: colores.textoSecundario },
+  etiqueta: { fontFamily: fuentes.tituloSuave, fontSize: 18, color: colores.texto },
+  cuerpo: { fontSize: 16, lineHeight: 23, color: colores.texto },
+  fuenteFila: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 6,
+    paddingHorizontal: espacios.xs,
+  },
+  fuente: { flex: 1, fontSize: 13, lineHeight: 18, color: colores.textoSecundario },
 });
