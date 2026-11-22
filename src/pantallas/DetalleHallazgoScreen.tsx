@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navegacion/tipos';
 import type { Hallazgo } from '../tipos/hallazgo';
@@ -7,8 +7,12 @@ import { obtenerHallazgo } from '../servicios/Historial';
 import { obtenerFicha } from '../servicios/Fichas';
 import { esIdentificado, fechaLegible, tituloHallazgo } from '../servicios/Presentacion';
 import AvisoOrientativo from '../componentes/AvisoOrientativo';
+import BotonSecundario from '../componentes/BotonSecundario';
 import FichaCurada from '../componentes/FichaCurada';
+import FondoDegradado from '../componentes/FondoDegradado';
 import ImagenHallazgo from '../componentes/ImagenHallazgo';
+import TarjetaVidrio from '../componentes/TarjetaVidrio';
+import { colores, espacios, fuentes } from '../tema/tema';
 import {
   MENSAJE_ERROR_HISTORIAL,
   MENSAJE_FICHA_NO_DISPONIBLE,
@@ -47,27 +51,40 @@ export default function DetalleHallazgoScreen({ navigation, route }: Props) {
 
   if (estado.tipo === 'cargando') {
     return (
-      <View style={styles.centro}>
-        <ActivityIndicator />
-      </View>
+      <FondoDegradado>
+        <View style={styles.centro}>
+          <ActivityIndicator color={colores.texto} />
+        </View>
+      </FondoDegradado>
     );
   }
 
   if (estado.tipo === 'error') {
     return (
-      <View style={styles.centro}>
-        <Text style={styles.texto}>{MENSAJE_ERROR_HISTORIAL}</Text>
-        <Button title="Reintentar" onPress={cargar} />
-      </View>
+      <FondoDegradado>
+        <View style={styles.centro}>
+          <TarjetaVidrio variante="solida" style={styles.estado}>
+            <Text style={styles.texto}>{MENSAJE_ERROR_HISTORIAL}</Text>
+            <BotonSecundario titulo="Reintentar" onPress={cargar} />
+          </TarjetaVidrio>
+        </View>
+      </FondoDegradado>
     );
   }
 
   if (estado.tipo === 'noEncontrado') {
     return (
-      <View style={styles.centro}>
-        <Text style={styles.texto}>{MENSAJE_HALLAZGO_NO_ENCONTRADO}</Text>
-        <Button title="Volver al historial" onPress={() => navigation.popTo('Historial')} />
-      </View>
+      <FondoDegradado>
+        <View style={styles.centro}>
+          <TarjetaVidrio variante="solida" style={styles.estado}>
+            <Text style={styles.texto}>{MENSAJE_HALLAZGO_NO_ENCONTRADO}</Text>
+            <BotonSecundario
+              titulo="Volver al historial"
+              onPress={() => navigation.popTo('Historial')}
+            />
+          </TarjetaVidrio>
+        </View>
+      </FondoDegradado>
     );
   }
 
@@ -80,30 +97,43 @@ export default function DetalleHallazgoScreen({ navigation, route }: Props) {
       : MENSAJE_UBICACION_NO_REGISTRADA;
 
   return (
-    <ScrollView contentContainerStyle={styles.contenido}>
-      <ImagenHallazgo uri={h.foto} tamano={300} />
-      <Text style={styles.titulo}>{tituloHallazgo(h)}</Text>
-      <Text style={styles.meta}>{fechaLegible(h.fecha)}</Text>
-      <Text style={styles.meta}>{ubicacion}</Text>
+    <FondoDegradado>
+      <ScrollView contentContainerStyle={styles.contenido}>
+        <ImagenHallazgo uri={h.foto} tamano={300} />
+        <Text style={styles.titulo}>{tituloHallazgo(h)}</Text>
+        <Text style={styles.meta}>{fechaLegible(h.fecha)}</Text>
+        <Text style={styles.meta}>{ubicacion}</Text>
 
-      {identificado ? (
-        ficha ? (
-          <FichaCurada ficha={ficha} />
+        {identificado ? (
+          ficha ? (
+            <FichaCurada ficha={ficha} />
+          ) : (
+            <TarjetaVidrio variante="solida" style={styles.estado}>
+              <Text style={styles.texto}>{MENSAJE_FICHA_NO_DISPONIBLE}</Text>
+            </TarjetaVidrio>
+          )
         ) : (
-          <Text style={styles.texto}>{MENSAJE_FICHA_NO_DISPONIBLE}</Text>
-        )
-      ) : (
-        <Text style={styles.texto}>{PRECAUCION_GENERAL}</Text>
-      )}
-      <AvisoOrientativo />
-    </ScrollView>
+          <TarjetaVidrio variante="solida" style={styles.precaucion}>
+            <Text style={styles.texto}>{PRECAUCION_GENERAL}</Text>
+          </TarjetaVidrio>
+        )}
+        <AvisoOrientativo />
+      </ScrollView>
+    </FondoDegradado>
   );
 }
 
 const styles = StyleSheet.create({
-  centro: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 20 },
-  contenido: { alignItems: 'center', gap: 12, padding: 20 },
-  titulo: { fontSize: 20, fontWeight: 'bold', textAlign: 'center' },
-  meta: { fontSize: 12, color: '#666' },
-  texto: { textAlign: 'center' },
+  centro: { flex: 1, justifyContent: 'center', padding: espacios.xl },
+  contenido: { alignItems: 'center', gap: espacios.m, padding: espacios.xl },
+  estado: { gap: espacios.m, alignItems: 'center', alignSelf: 'stretch' },
+  titulo: {
+    fontFamily: fuentes.titulo,
+    fontSize: 30,
+    textAlign: 'center',
+    color: colores.texto,
+  },
+  meta: { fontSize: 12, color: colores.textoSecundario },
+  texto: { fontSize: 15, textAlign: 'center', color: colores.texto },
+  precaucion: { alignSelf: 'stretch', backgroundColor: colores.precaucionFondo },
 });
