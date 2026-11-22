@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navegacion/tipos';
 import type { Hallazgo } from '../tipos/hallazgo';
 import { obtenerHallazgos } from '../servicios/Historial';
+import BotonSecundario from '../componentes/BotonSecundario';
 import FilaHallazgo from '../componentes/FilaHallazgo';
+import FondoDegradado from '../componentes/FondoDegradado';
+import TarjetaVidrio from '../componentes/TarjetaVidrio';
+import { colores, espacios } from '../tema/tema';
 import { MENSAJE_ERROR_HISTORIAL, MENSAJE_HISTORIAL_VACIO } from '../datos/textos';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Historial'>;
@@ -33,44 +37,59 @@ export default function HistorialScreen({ navigation }: Props) {
 
   if (estado.tipo === 'cargando') {
     return (
-      <View style={styles.centro}>
-        <ActivityIndicator />
-      </View>
+      <FondoDegradado>
+        <View style={styles.centro}>
+          <ActivityIndicator color={colores.texto} />
+        </View>
+      </FondoDegradado>
     );
   }
 
   if (estado.tipo === 'error') {
     return (
-      <View style={styles.centro}>
-        <Text style={styles.texto}>{MENSAJE_ERROR_HISTORIAL}</Text>
-        <Button title="Reintentar" onPress={cargar} />
-      </View>
+      <FondoDegradado>
+        <View style={styles.centro}>
+          <TarjetaVidrio variante="solida" style={styles.estado}>
+            <Text style={styles.texto}>{MENSAJE_ERROR_HISTORIAL}</Text>
+            <BotonSecundario titulo="Reintentar" onPress={cargar} />
+          </TarjetaVidrio>
+        </View>
+      </FondoDegradado>
     );
   }
 
   if (estado.hallazgos.length === 0) {
     return (
-      <View style={styles.centro}>
-        <Text style={styles.texto}>{MENSAJE_HISTORIAL_VACIO}</Text>
-      </View>
+      <FondoDegradado>
+        <View style={styles.centro}>
+          <TarjetaVidrio variante="vidrioSinBlur" style={styles.estado}>
+            <Text style={styles.texto}>{MENSAJE_HISTORIAL_VACIO}</Text>
+          </TarjetaVidrio>
+        </View>
+      </FondoDegradado>
     );
   }
 
   return (
-    <FlatList
-      data={estado.hallazgos}
-      keyExtractor={(h) => String(h.id)}
-      renderItem={({ item }) => (
-        <FilaHallazgo
-          hallazgo={item}
-          alPresionar={() => navigation.navigate('DetalleHallazgo', { id: item.id })}
-        />
-      )}
-    />
+    <FondoDegradado>
+      <FlatList
+        data={estado.hallazgos}
+        keyExtractor={(h) => String(h.id)}
+        contentContainerStyle={styles.lista}
+        renderItem={({ item }) => (
+          <FilaHallazgo
+            hallazgo={item}
+            alPresionar={() => navigation.navigate('DetalleHallazgo', { id: item.id })}
+          />
+        )}
+      />
+    </FondoDegradado>
   );
 }
 
 const styles = StyleSheet.create({
-  centro: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 20 },
-  texto: { textAlign: 'center' },
+  centro: { flex: 1, justifyContent: 'center', padding: espacios.xl },
+  estado: { gap: espacios.m, alignItems: 'center' },
+  texto: { fontSize: 15, textAlign: 'center', color: colores.texto },
+  lista: { gap: espacios.m, padding: espacios.l },
 });
