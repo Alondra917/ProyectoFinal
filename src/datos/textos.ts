@@ -41,3 +41,26 @@ export const ETIQUETA_DESCRIPCION = 'Descripción';
 export const ETIQUETA_PRECAUCION = 'Precaución';
 export const ETIQUETA_FUENTE = 'Fuente';
 export const ETIQUETA_CONFIANZA = 'Confianza';
+
+
+import type { NivelRiesgo } from '../tipos/ficha';
+
+export const ETIQUETA_SI_HAY_PROBLEMA = 'Si hay un problema';
+
+// El título de la tarjeta de precauciones cambia según el riesgo:
+// "Precaución" sobre una colilla es correcto, sobre una tapa no.
+export const ETIQUETA_POR_RIESGO: Record<NivelRiesgo, string> = {
+  seguro: 'Qué hacer',
+  precaucion: 'Precaución',
+  peligro: 'Peligro',
+};
+
+// Caso `otro` (D1): la foto no es un hallazgo de playa.
+export const MENSAJE_NO_ES_HALLAZGO = 'Esto no parece un hallazgo de playa';
+// Caso confianza baja
+export const SUGERENCIA_FOTO = 'Acércate, busca buena luz y un fondo simple.';
+
+// Historial
+export const FILTRO_TODOS = 'Todos';
+export const FILTRO_IDENTIFICADOS = 'Identificados';
+export const MENSAJE_SIN_IDENTIFICADOS = 'Aún no tienes hallazgos identificados.';

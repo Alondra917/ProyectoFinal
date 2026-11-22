@@ -2,36 +2,105 @@
   {
     "clase": "botella_plastico",
     "nombre_visible": "Botella de plástico",
-    "descripcion": "Envase plástico desechado. Tarda cientos de años en degradarse y se fragmenta en microplásticos.",
-    "precaucion": "Recógela con guantes o una bolsa y deposítala en un contenedor de reciclaje. Ten cuidado con vidrios o residuos cerca.",
-    "fuente": "PROVISIONAL: NOAA Marine Debris Program (verificar enlace)"
+    "categoria": "basura",
+    "nivel_riesgo": "seguro",
+    "descripcion": "Envase plástico desechado. Puede tardar siglos en degradarse y se fragmenta en microplásticos que dañan a la fauna marina.",
+    "precaucion": [
+      "Recógela con guantes o una bolsa y deposítala en un contenedor de reciclaje.",
+      "Revisa que no contenga líquidos desconocidos ni objetos punzantes."
+    ],
+    "si_hay_problema": "Si contiene un líquido desconocido o está entre otros residuos peligrosos, no la abras ni la huelas. Avisa a las autoridades locales.",
+    "fuente": {
+      "nombre": "NOAA Marine Debris Program",
+      "url": null,
+      "consultado": null
+    }
   },
   {
     "clase": "colilla",
     "nombre_visible": "Colilla de cigarro",
-    "descripcion": "El filtro es de plástico (acetato de celulosa) y retiene sustancias tóxicas del tabaco.",
-    "precaucion": "No la toques con las manos descubiertas. Recógela con guantes o pinzas y tírala en la basura, no en el reciclaje.",
-    "fuente": "PROVISIONAL: NOAA Marine Debris Program (verificar enlace)"
+    "categoria": "basura",
+    "nivel_riesgo": "precaucion",
+    "descripcion": "Su filtro es de plástico (acetato de celulosa) y retiene sustancias tóxicas del tabaco que se liberan al agua y al suelo.",
+    "precaucion": [
+      "No la toques con las manos descubiertas.",
+      "Recógela con guantes o pinzas y tírala en la basura, no en el reciclaje."
+    ],
+    "si_hay_problema": "Si hay jeringas, vidrios u otros objetos punzantes entre las colillas, no los toques. Avisa a las autoridades locales.",
+    "fuente": {
+      "nombre": "NOAA Marine Debris Program",
+      "url": null,
+      "consultado": null
+    }
   },
   {
     "clase": "erizo_morado",
     "nombre_visible": "Erizo morado",
+    "categoria": "fauna",
+    "nivel_riesgo": "precaucion",
     "descripcion": "Erizo de mar de espinas púrpuras que vive en rocas y pozas de marea de la costa del Pacífico.",
-    "precaucion": "No lo pises ni lo toques: las espinas pueden clavarse y romperse en la piel. Obsérvalo sin sacarlo del agua.",
-    "fuente": "PROVISIONAL: guía de fauna de pozas de marea (por definir y verificar)"
+    "precaucion": [
+      "No lo pises ni lo toques: las espinas pueden clavarse y romperse en la piel.",
+      "Obsérvalo sin sacarlo del agua ni moverlo de su lugar."
+    ],
+    "si_hay_problema": "Si te clavas una espina, lava la zona y acude a atención médica si hay dolor intenso, hinchazón o la espina queda dentro.",
+    "fuente": {
+      "nombre": "Pendiente: guía académica local (UABC o CICESE) o guía de pozas de marea",
+      "url": null,
+      "consultado": null
+    }
   },
   {
     "clase": "lobo_marino",
     "nombre_visible": "Lobo marino californiano",
-    "descripcion": "Mamífero marino que descansa en playas y rocas. Es una especie protegida en México.",
-    "precaucion": "Mantén al menos 50 m de distancia, no lo toques ni lo alimentes y mantén a los perros lejos. Si parece herido o enfermo, avisa a PROFEPA o Protección Civil; no intentes ayudarlo tú.",
-    "fuente": "PROVISIONAL: guía oficial de avistamiento (PROFEPA/SEMARNAT) por verificar; la distancia de 50 m es suposición mía"
+    "categoria": "fauna",
+    "nivel_riesgo": "precaucion",
+    "descripcion": "Mamífero marino que descansa en playas y rocas, a menudo para regular su temperatura. Es una especie protegida en México.",
+    "precaucion": [
+      "Mantén una distancia segura. Si el animal te mira fijamente, se mueve o vocaliza, estás demasiado cerca.",
+      "No lo toques, no lo alimentes y no lo devuelvas al mar.",
+      "Mantén a los perros lejos y con correa."
+    ],
+    "si_hay_problema": "Si parece herido, enredado o enfermo, avisa a PROFEPA o Protección Civil con tu ubicación. No intentes ayudarlo tú.",
+    "fuente": {
+      "nombre": "PROFEPA / CONANP",
+      "url": null,
+      "consultado": null
+    }
   },
   {
-    "clase": "plastico_film",
-    "nombre_visible": "Plástico film",
-    "descripcion": "Bolsas y envolturas plásticas delgadas. Pueden enredar o ser ingeridas por fauna marina.",
-    "precaucion": "Recógelo completo con las manos protegidas y tíralo en la basura. Si está enredado en un animal, no lo cortes tú; avisa a las autoridades.",
-    "fuente": "PROVISIONAL: NOAA Marine Debris Program (verificar enlace)"
+    "clase": "tapa_botella",
+    "nombre_visible": "Tapa de botella",
+    "categoria": "basura",
+    "nivel_riesgo": "seguro",
+    "descripcion": "Tapa de plástico que la fauna marina puede confundir con alimento o en la que puede quedar enredada.",
+    "precaucion": [
+      "Si está suelta, recógela y tírala en la basura.",
+      "Usa guantes o una bolsa si hay otros residuos alrededor."
+    ],
+    "si_hay_problema": "Si hay un animal enredado, no intentes quitarle nada. Avisa a las autoridades con tu ubicación.",
+    "fuente": {
+      "nombre": "NOAA Marine Debris Program",
+      "url": null,
+      "consultado": null
+    }
+  },
+  {
+    "clase": "cangrejo_rayado",
+    "nombre_visible": "Cangrejo rayado de orilla",
+    "categoria": "fauna",
+    "nivel_riesgo": "seguro",
+    "descripcion": "Cangrejo pequeño de patas rayadas que vive en rocas y pozas de marea de la costa del Pacífico.",
+    "precaucion": [
+      "Obsérvalo sin perseguirlo y no lo saques de su poza.",
+      "Si lo agarras puede pellizcar; es mejor no tocarlo.",
+      "Camina con cuidado entre las rocas para no aplastarlo."
+    ],
+    "si_hay_problema": null,
+    "fuente": {
+      "nombre": "Pendiente: guía académica local (UABC o CICESE) o guía de pozas de marea",
+      "url": null,
+      "consultado": null
+    }
   }
 ]
