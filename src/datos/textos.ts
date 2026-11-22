@@ -27,3 +27,12 @@ export const MENSAJE_ERROR_HISTORIAL = 'No se pudo cargar el historial.';
 export const MENSAJE_HALLAZGO_NO_ENCONTRADO = 'No se encontró este hallazgo.';
 
 export const MENSAJE_UBICACION_NO_REGISTRADA = 'Ubicación no registrada';
+
+export const TITULO_APP = 'Identificador de Hallazgos de Playa';
+export const SUBTITULO_APP = 'Descubre qué encontraste y cuida nuestro mar';
+export const TOMAR_FOTO_TITULO = 'Tomar una foto';
+export const TOMAR_FOTO_DETALLE = 'Identifica lo que encuentres en la playa';
+export const GALERIA_TITULO = 'Elegir de la galería';
+export const GALERIA_DETALLE = 'Selecciona una foto de tu dispositivo';
+export const SIN_CONEXION_TITULO = 'Funciona sin conexión';
+export const SIN_CONEXION_DETALLE = 'Tu información se procesa en tu teléfono';
