@@ -36,3 +36,8 @@ export const GALERIA_TITULO = 'Elegir de la galería';
 export const GALERIA_DETALLE = 'Selecciona una foto de tu dispositivo';
 export const SIN_CONEXION_TITULO = 'Funciona sin conexión';
 export const SIN_CONEXION_DETALLE = 'Tu información se procesa en tu teléfono';
+
+export const ETIQUETA_DESCRIPCION = 'Descripción';
+export const ETIQUETA_PRECAUCION = 'Precaución';
+export const ETIQUETA_FUENTE = 'Fuente';
+export const ETIQUETA_CONFIANZA = 'Confianza';
