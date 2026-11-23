@@ -1,5 +1,67 @@
 # Diario de decisiones
 
+## Desiciones generales 
+Proyecto: Identificador de Hallazgos de Playa (Aplicaciones Móviles, UABC ISyTE). Autora: Alondra. Herramienta de IA: Claude.
+
+Nota: el documento que usé como base empieza en F06. La parte inicial (SDD y specs) la reconstruí del resumen que pasé entre conversaciones. Donde dice **[completar]** falta mi dato real.
+
+## 1. Cómo trabajé con la IA
+
+Trabajé con desarrollo guiado por especificaciones (SDD), que es lo que pide mi profesor. La regla es simple: no se programa una feature sin su spec, y si algo cambia, primero se actualiza la spec. Le pedí a la IA que me diera una decisión a la vez, con opciones y una recomendación, y que yo decido. También le pedí commits pequeños en español, que verifique en la documentación todo lo que dependa de versiones (uso Expo SDK 57) y que no marque una prueba como hecha si yo no la confirmé. Todo lo probé en mi iPhone 11 real, usando código temporal con `console.log` que luego quitaba con `git checkout`.
+
+## 2. Cómo empecé: el SDD y las specs
+
+Mi profesor pidió seguir su guía SDD. Le pedí a la IA una primera versión de las specs, que guardé en la carpeta `specs/`: el proyecto (`00-project.md`), el modelo de datos, el modelo de clasificación y una spec por cada feature, de F01 a F10. **[completar: mi prompt original y qué cambié de esa primera versión.]** La carpeta `specs/` está en `.gitignore`, así que vive solo en mi Mac. Me falta la revisión por pares de las specs que pidió el profesor.
+
+## 3. Decisiones principales
+
+Estas son las decisiones que fui registrando (D1 a D16), explicadas en pocas palabras:
+
+- **D1:** agregué una clase `otro`, para que el modelo no obligue a una foto ajena a parecer una clase real.
+- **D2 y D3:** los recortes de TACO se hacen por bounding box, y el modelo se evalúa con recall de al menos 0.70 por clase más un conjunto de fotos de campo de Ensenada. **[completar el motivo.]**
+- **D4:** cada ficha lleva siempre un aviso de que la identificación es orientativa y una fuente obligatoria.
+- **D5:** si algún día existe el mapa comunitario, no subirá fotos, solo clase, fecha y ubicación, por privacidad.
+- **D6:** el modelo corre en el teléfono, porque la app debe funcionar sin internet en la playa.
+- **D7 y D8:** las fichas son un JSON local y no hay autenticación, porque no hay servidor ni usuarios que proteger.
+- **D9:** uso MobileNetV2 congelada y solo entreno la capa final, para aprovechar lo que la red ya aprendió.
+- **D10:** guardo latitud y longitud desde el inicio. **[completar el motivo.]**
+- **D11:** uso la cámara del sistema y la app recorta el cuadrado central, porque el editor del selector no garantiza una imagen cuadrada.
+- **D12 y D13:** la navegación es un native-stack con 4 pantallas, y cada pantalla guarda su estado con `useState`, sin carpeta `stores/`.
+- **D14:** la foto se copia al directorio de la app antes de guardar, porque la ruta que da el selector puede borrarse y el historial mostraría fotos rotas.
+- **D15:** esa copia se reduce a 1024 px y se comprime a JPEG 0.7. Medí que una foto pasó de 396 293 a 99 199 bytes, cerca de 75 % menos, y se siguen viendo nítidas.
+- **D16:** el rediseño visual solo cambia las 4 pantallas existentes, sin tocar la navegación ni el comportamiento.
+
+Otras decisiones menores: la galería no pide permiso (lo comprobé en mi iPhone), en la base de datos guardo solo el nombre de la foto y no la ruta completa (porque la ruta puede cambiar al reinstalar), y decidí no usar el simulador porque no tiene cámara y dio un error por una compilación vieja. La app es un monolito sin backend, organizado por capas: pantallas, servicios y datos locales.
+
+## 4. Diario por fases
+
+**F06, cámara y permisos.** Al correr `expo prebuild` salió el error "Plugin is an unexpected object". La causa era que en `app.json` el plugin `expo-image-picker` y su texto de permiso estaban como dos elementos separados; tenían que ir juntos dentro de un mismo arreglo. Lo corregí y comprobé que mi texto en español quedara en el `Info.plist`. Aprendí que los permisos de `app.json` solo llegan al iPhone si hago `prebuild` y recompilo.
+
+**F07, ficha curada.** Ya tenía mi spec de F07, pero la IA escribió otra sin abrir mi zip. La descarté y usamos la mía. Las fichas que escribió la IA son provisionales: yo redactaré el contenido real con fuentes verificadas, por ejemplo la guía oficial de PROFEPA/SEMARNAT para el lobo marino. Noté que el aviso y la precaución general decían casi lo mismo y pedí cambiar la precaución. El scroll no se movía en el simulador, pero en el iPhone funcionó.
+
+**F08, guardar en historial.** Elegí copiar la foto (D14). Pregunté si se podía bajar la calidad de las fotos y la IA me dio dos formas; elegí comprimir al guardar (D15). Se guarda en este orden: copiar la foto, obtener la ubicación y hacer el insert. Si el insert falla, se borra la copia. La ubicación se pide una sola vez, espera máximo 5 segundos y, si se niega, se guarda vacía sin bloquear nada. Probé en el iPhone que los datos persisten, que un doble toque guarda una sola fila y que sin permiso de ubicación se guarda igual.
+
+**F09, ver historial.** Hice una lista con estados de cargando, vacío, datos y error, y una pantalla de detalle. Probé que si falta la foto aparece un recuadro con ícono y que las miniaturas se ven nítidas.
+
+**Preparación de la defensa.** Le pedí lo mínimo que debo saber: el flujo completo, dónde se piden los permisos, cómo es la base de datos, qué es JPEG 0.7 y SQLite, y cuál es la arquitectura.
+
+**Rediseño visual.** Pasé un mockup oscuro color azul marino. La IA me explicó que casi todo se logra con código, pero que las ilustraciones (algas, medusa, nutria) no, ni las pantallas que no están en mi proyecto. Primero se escribió la spec `04-ui.md` y luego se aplicó por pasos: instalar dependencias, crear el tema de colores, hacer cuatro componentes base y aplicarlos pantalla por pantalla, con un commit en cada una. Al final se activó el tema oscuro en los encabezados de navegación. Los emojis son temporales y los cambiaré por íconos.
+
+## 5. Criterio: qué rechacé de la IA y en qué se equivocó
+
+**Lo que rechacé o cambié.** Primero, descarté la spec de F07 que la IA escribió desde cero sin leer mi zip; le pregunté si no podía acceder a él y reconoció el error. Segundo, la IA recomendó la fuente Playfair Display por ser más legible, pero yo elegí Cormorant Garamond porque se parece más al mockup; para cuidar la legibilidad se usa solo en títulos y en pesos gruesos. Tercero, por el poco tiempo antes de la entrega, la IA sugirió rediseñar solo Inicio y Resultado, pero yo pedí las 4 pantallas. Cuarto, yo noté que el aviso y la precaución general eran casi el mismo texto, y se reescribió la precaución.
+
+**En qué se equivocó la IA y cómo lo detecté:**
+
+- La spec de F07 nueva sin leer mi zip: lo noté yo al recordar que ya tenía una spec 7.
+- Su `Fichas.ts` lanzaba un error al cargar si una ficha estaba mal, lo que podía cerrar la app. Se vio al leer mi spec, que pide que la app no se caiga. Ahora solo muestra un aviso en consola y solo en desarrollo.
+- Cuando le dije que "no se estaba guardando", supuso que era el `throw` de prueba que se quedó en `Fotos.ts`. No era eso: al pegar el log aparecieron 6 filas, así que sí se guardaba. Lo que pasaba es que el log solo se ejecuta al abrir Inicio, por eso no veía filas nuevas.
+- Pensó que el scroll fallaba por mi código. Al probar en el iPhone funcionó; el problema era el simulador.
+- El texto blanco sobre el botón naranja tenía un contraste de 2.13, que no cumple. Se calculó al armar la spec de diseño y los botones llevan texto oscuro.
+- El título del hallazgo salía repetido en Resultado, y se quitó de la ficha.
+
+**Lo que la IA marcó como suposición suya:** las fuentes de las fichas y la distancia de 50 m para el lobo marino, que la ruta de iOS puede cambiar al reinstalar (no verificado en la documentación de Expo), los valores 1024 px y 0.7 (que yo validé viendo las fotos) y los colores del tema, que salen de mirar el mockup y no de medirlos. También reconoció que no puede mandarme recordatorios, así que lo de la foto vertical lo anoté en mi lista de tareas.
+
 Proyecto: Identificador de Hallazgos de Playa (app móvil, React Native + Expo, modelo propio en el teléfono).
 Este diario recoge las decisiones de diseño y de alcance, con su motivo y, cuando existe, el resultado medido. Las decisiones D1 a D15 vienen de los specs; de la D16 en adelante son las de la fase final del modelo y de la entrega.
 
