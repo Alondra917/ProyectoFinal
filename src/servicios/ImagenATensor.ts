@@ -34,9 +34,9 @@ export async function imagenATensor(uri: string): Promise<Float32Array<ArrayBuff
 
   const entrada = new Float32Array(224 * 224 * 3);
   for (let i = 0, j = 0; i < data.length; i += 4) {
-    entrada[j++] = data[i] / 127.5 - 1;     // R
-    entrada[j++] = data[i + 1] / 127.5 - 1; // G
-    entrada[j++] = data[i + 2] / 127.5 - 1; // B
+    entrada[j++] = data[i];     // R en [0, 255]: el modelo normaliza por dentro
+    entrada[j++] = data[i + 1]; // G
+    entrada[j++] = data[i + 2]; // B
   }
   return entrada;
 }
