@@ -15,12 +15,23 @@ export type Resultado = {
 
 let modelo: Modelo | null = null;
 
+import { Asset } from 'expo-asset';
+
 export async function cargarModelo(): Promise<void> {
   if (modelo) return;
-  modelo = await loadTensorflowModel(
-    require('../../assets/modelos/modelo.tflite'),
-    []
-  );
+  const modulo = require('../../assets/modelos/modelo.tflite');
+  try {
+    modelo = await loadTensorflowModel(modulo, []);
+  } catch (e) {
+    // Respaldo para Android en producción
+    const asset = Asset.fromModule(modulo);
+    try {
+      await asset.downloadAsync();
+      modelo = await loadTensorflowModel({ url: asset.localUri ?? asset.uri }, []);
+    } catch (e2) {
+      throw new Error(`${asset.localUri ?? asset.uri} -> ${String(e2)}`);
+    }
+  }
 }
 
 export function clasificar(entrada: Float32Array<ArrayBuffer>): Resultado {

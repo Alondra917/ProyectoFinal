@@ -17,7 +17,13 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.anonymous.ProyectoFinal"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,7 +43,13 @@
         }
       ],
       "expo-sqlite",
-      "expo-font"
-    ]
+      "expo-font",
+      "expo-asset"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "dac3a3ab-db5b-437e-a003-1fb7d52bf613"
+      }
+    }
   }
 }
