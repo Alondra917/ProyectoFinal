@@ -55,8 +55,8 @@ export const ETIQUETA_POR_RIESGO: Record<NivelRiesgo, string> = {
   peligro: 'Peligro',
 };
 
-// Caso `otro` (D1): la foto no es un hallazgo de playa.
-export const MENSAJE_NO_ES_HALLAZGO = 'Esto no parece un hallazgo de playa';
+// Caso `otro` (D1): la foto no coincide con ninguna de las clases del modelo (puede ser arena, una concha u otro objeto).
+export const MENSAJE_NO_ES_HALLAZGO = 'Esta foto no coincide con ninguno de los hallazgos que reconoce la app';
 // Caso confianza baja
 export const SUGERENCIA_FOTO = 'Acércate, busca buena luz y un fondo simple.';
 
