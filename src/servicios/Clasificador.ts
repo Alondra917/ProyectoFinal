@@ -3,7 +3,8 @@ import clases from '../../assets/modelos/clases.json';
 
 type Modelo = Awaited<ReturnType<typeof loadTensorflowModel>>;
 
-export const UMBRAL_CONFIANZA = 0.6; // provisional, se calibra con el modelo real
+// Calibrado con el conjunto de validación del modelo (ver F04).
+export const UMBRAL_CONFIANZA = 0.7;
 
 export type Resultado = {
   clase: string;
@@ -17,7 +18,7 @@ let modelo: Modelo | null = null;
 export async function cargarModelo(): Promise<void> {
   if (modelo) return;
   modelo = await loadTensorflowModel(
-    require('../../assets/modelos/modelo_prueba.tflite'),
+    require('../../assets/modelos/modelo.tflite'),
     []
   );
 }
