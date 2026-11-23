@@ -5,7 +5,6 @@ import type { Ficha } from '../tipos/ficha';
 const fichas = fichasJson as Ficha[];
 
 const NIVELES = ['seguro', 'precaucion', 'peligro'];
-const CATEGORIAS = ['basura', 'fauna'];
 
 const vacio = (v: unknown) => typeof v !== 'string' || v.trim() === '';
 
@@ -23,9 +22,6 @@ function validar(lista: Ficha[]) {
 
     if (!NIVELES.includes(f.nivel_riesgo)) {
       console.error(`Ficha "${f.clase}": nivel_riesgo inválido (${f.nivel_riesgo})`);
-    }
-    if (!CATEGORIAS.includes(f.categoria)) {
-      console.error(`Ficha "${f.clase}": categoria inválida (${f.categoria})`);
     }
 
     // D4: la fuente es obligatoria

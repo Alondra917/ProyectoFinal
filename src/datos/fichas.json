@@ -2,7 +2,6 @@
   {
     "clase": "botella_plastico",
     "nombre_visible": "Botella de plástico",
-    "categoria": "basura",
     "nivel_riesgo": "seguro",
     "descripcion": "Envase plástico desechado. Puede tardar siglos en degradarse y se fragmenta en microplásticos que dañan a la fauna marina.",
     "precaucion": [
@@ -19,7 +18,6 @@
   {
     "clase": "colilla",
     "nombre_visible": "Colilla de cigarro",
-    "categoria": "basura",
     "nivel_riesgo": "precaucion",
     "descripcion": "Su filtro es de plástico (acetato de celulosa) y retiene sustancias tóxicas del tabaco que se liberan al agua y al suelo.",
     "precaucion": [
@@ -36,7 +34,6 @@
   {
     "clase": "erizo_morado",
     "nombre_visible": "Erizo morado",
-    "categoria": "fauna",
     "nivel_riesgo": "precaucion",
     "descripcion": "Erizo de mar de espinas púrpuras que vive en rocas y pozas de marea de la costa del Pacífico.",
     "precaucion": [
@@ -53,7 +50,6 @@
   {
     "clase": "lobo_marino",
     "nombre_visible": "Lobo marino californiano",
-    "categoria": "fauna",
     "nivel_riesgo": "precaucion",
     "descripcion": "Mamífero marino que descansa en playas y rocas, a menudo para regular su temperatura. Es una especie protegida en México.",
     "precaucion": [
@@ -68,27 +64,10 @@
       "consultado": null
     }
   },
-  {
-    "clase": "tapa_botella",
-    "nombre_visible": "Tapa de botella",
-    "categoria": "basura",
-    "nivel_riesgo": "seguro",
-    "descripcion": "Tapa de plástico que la fauna marina puede confundir con alimento o en la que puede quedar enredada.",
-    "precaucion": [
-      "Si está suelta, recógela y tírala en la basura.",
-      "Usa guantes o una bolsa si hay otros residuos alrededor."
-    ],
-    "si_hay_problema": "Si hay un animal enredado, no intentes quitarle nada. Avisa a las autoridades con tu ubicación.",
-    "fuente": {
-      "nombre": "NOAA Marine Debris Program",
-      "url": null,
-      "consultado": null
-    }
-  },
+  
   {
     "clase": "cangrejo_rayado",
     "nombre_visible": "Cangrejo rayado de orilla",
-    "categoria": "fauna",
     "nivel_riesgo": "seguro",
     "descripcion": "Cangrejo pequeño de patas rayadas que vive en rocas y pozas de marea de la costa del Pacífico.",
     "precaucion": [
