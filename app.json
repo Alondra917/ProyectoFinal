@@ -27,16 +27,17 @@
       [
         "expo-image-picker",
         {
-          "cameraPermission": "La cámara se usa para fotografiar hallazgos de playa y clasificarlos en tu teléfono."
+          "cameraPermission": "La cámara se usa solo para tomar la foto del hallazgo. También puedes elegir una foto de tu galería: la app solo recibe esa foto, no accede al resto. Todo se procesa en tu teléfono."
         }
       ],
       [
-    "expo-location",
-    {
-      "locationWhenInUsePermission": "La ubicación se guarda con cada hallazgo para registrar dónde lo encontraste."
-    }
-  ],
-      "expo-sqlite"
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "La ubicación se guarda con cada hallazgo para registrar dónde lo encontraste."
+        }
+      ],
+      "expo-sqlite",
+      "expo-font"
     ]
   }
 }

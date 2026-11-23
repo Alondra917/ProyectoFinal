@@ -64,3 +64,7 @@ export const SUGERENCIA_FOTO = 'Acércate, busca buena luz y un fondo simple.';
 export const FILTRO_TODOS = 'Todos';
 export const FILTRO_IDENTIFICADOS = 'Identificados';
 export const MENSAJE_SIN_IDENTIFICADOS = 'Aún no tienes hallazgos identificados.';
+// Permisos: explicación previa al diálogo de la cámara (mientras el permiso está sin determinar)
+export const PERMISOS_TEXTO =
+  'Para identificar un hallazgo necesitamos tu cámara. También puedes elegir una foto de tu galería: la app solo recibe la que escojas y no accede al resto de tus fotos. Todo se procesa en tu teléfono, sin internet.';
+export const PERMISOS_BOTON = 'Continuar';

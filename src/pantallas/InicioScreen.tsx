@@ -24,6 +24,8 @@ import {
   GALERIA_TITULO,
   INDICACION_CAPTURA,
   MENSAJE_CAMARA_DENEGADA,
+  PERMISOS_BOTON, 
+  PERMISOS_TEXTO,
   SIN_CONEXION_DETALLE,
   SIN_CONEXION_TITULO,
   SUBTITULO_APP,
@@ -41,6 +43,7 @@ export default function InicioScreen({ navigation }: Props) {
   const [errorSeleccion, setErrorSeleccion] = useState<string | null>(null);
   const [permisoCamara, pedirPermisoCamara] = ImagePicker.useCameraPermissions();
   const camaraBloqueada = permisoCamara?.status === 'denied' && !permisoCamara.canAskAgain;
+  const mostrarExplicacion = permisoCamara?.status === 'undetermined';
 
   // Entrada suave: fade + subida
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -79,6 +82,14 @@ export default function InicioScreen({ navigation }: Props) {
   useEffect(() => {
     cargar();
   }, [cargar]);
+
+  async function continuarPermisos() {
+  try {
+    await pedirPermisoCamara();
+  } catch (e) {
+    setErrorSeleccion(e instanceof Error ? e.message : String(e));
+  }
+}
 
   async function tomarFoto() {
     try {
@@ -140,6 +151,18 @@ export default function InicioScreen({ navigation }: Props) {
           <Animated.View style={{ opacity: fadeAnim }}>
             <EstadoModeloBadge estado={modelo} error={errorModelo} onReintentar={cargar} />
           </Animated.View>
+          {/* ── Explicación previa al permiso de cámara ── */}
+            {mostrarExplicacion && (
+              <BlurView intensity={20} tint="dark" style={styles.avisoCard}>
+                <View style={styles.avisoFila}>
+                  <Feather name="shield" size={15} color={colores.acentoInicio} />
+                  <Text style={styles.avisoTexto}>{PERMISOS_TEXTO}</Text>
+                </View>
+                <Pressable onPress={continuarPermisos} accessibilityRole="button" style={styles.botonAjustes}>
+                  <Text style={styles.botonAjustesTexto}>{PERMISOS_BOTON}</Text>
+                </Pressable>
+              </BlurView>
+            )}
 
           {/* ── Acción principal: cámara ── */}
           <Animated.View style={entradaStyle}>
